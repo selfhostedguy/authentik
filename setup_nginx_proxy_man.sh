@@ -3,7 +3,7 @@
 
 set -e  # Exit on any error
 
-# 1️⃣ Install Docker & Docker Compose if missing
+#  Install Docker & Docker Compose if missing
 if ! command -v docker &>/dev/null; then
     echo "Docker not found. Installing Docker..."
     sudo apt-get update
@@ -21,11 +21,11 @@ else
     echo "Docker is already installed."
 fi
 
-# 2️⃣ Create required directories
+#  Create required directories
 mkdir -p ~/nginx-proxy-manager/data
 mkdir -p ~/nginx-proxy-manager/letsencrypt
 
-# 3️⃣ Create docker-compose.yml
+#  Create docker-compose.yml
 cat <<'EOF' > ~/nginx-proxy-manager/docker-compose.yml
 version: '3'
 services:
@@ -43,10 +43,10 @@ services:
       - ./letsencrypt:/etc/letsencrypt
 EOF
 
-# 4️⃣ Launch NGINX Proxy Manager
+#  Launch NGINX Proxy Manager
 cd ~/nginx-proxy-manager
 sudo docker compose up -d
 
-echo "✅ NGINX Proxy Manager installed and running!"
+echo "NGINX Proxy Manager installed and running!"
 echo "Admin interface: http://localhost:81"
 echo "Default credentials: admin@example.com / changeme"
