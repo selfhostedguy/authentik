@@ -46,28 +46,7 @@ EOF
 #  Launch NGINX Proxy Manager
 cd ~/nginx-proxy-manager
 sudo docker compose up -d
-# Wait for all containers to become healthy
-echo "⏳ Waiting for containers to become healthy..."
-
-# Timeout in seconds
-TIMEOUT=600
-INTERVAL=5
-ELAPSED=0
-
-while [[ $(sudo docker ps --format '{{.Names}} {{.Status}}' | grep -c 'healthy') -lt $(sudo docker ps --format '{{.Names}}' | wc -l) ]]; do
-    if (( ELAPSED >= TIMEOUT )); then
-        echo "❌ Timeout reached. Some containers are not healthy."
-        sudo docker ps
-        exit 1
-    fi
-
-    echo "   ...still waiting ($(($ELAPSED))s / $TIMEOUT)s"
-    sleep $INTERVAL
-    ELAPSED=$((ELAPSED + INTERVAL))
-done
-
-echo "✅ All containers are healthy!"
 
 echo "NGINX Proxy Manager installed and running!"
-echo "Admin interface: http://localhost:81"
+echo "Admin interface: http://{your_ip_address}:81"
 echo "Default credentials: admin@example.com / changeme"
